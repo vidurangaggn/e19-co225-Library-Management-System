@@ -10,9 +10,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
 <<<<<<< HEAD
+<<<<<<< HEAD
         android:text="@string/hello_blank_fragment" />
 =======
         android:text="Book Fragment" />
 >>>>>>> main
+=======
+        android:text="@string/hello_blank_fragment" />
+>>>>>>> parent of f1c49b7 (Update login and Update)
 
 </FrameLayout>

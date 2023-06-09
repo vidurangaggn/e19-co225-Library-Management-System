@@ -2,9 +2,12 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android' version '1.6.21' apply false
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     id 'com.google.gms.google-services'
 >>>>>>> main
+=======
+>>>>>>> parent of f1c49b7 (Update login and Update)
 }
 
 android {
@@ -43,10 +46,13 @@ android {
 
 dependencies {
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     implementation 'com.google.firebase:firebase-firestore:24.4.1'
     implementation 'com.google.firebase:firebase-auth:22.0.0'
 >>>>>>> main
+=======
+>>>>>>> parent of f1c49b7 (Update login and Update)
     constraints {
         implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0") {
             because("kotlin-stdlib-jdk7 is now a part of kotlin-stdlib")
@@ -66,6 +72,7 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
       // Import the Firebase BoM
   implementation platform('com.google.firebase:firebase-bom:32.1.0')
@@ -81,4 +88,6 @@ dependencies {
   // Add the dependencies for any other desired Firebase products
   // https://firebase.google.com/docs/android/setup#available-libraries
 >>>>>>> main
+=======
+>>>>>>> parent of f1c49b7 (Update login and Update)
 }
