@@ -4,14 +4,18 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+
+import com.example.lmsapplication.MainActivity;
 import com.example.lmsapplication.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -25,6 +29,7 @@ import android.widget.DatePicker;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Calendar;
@@ -37,6 +42,8 @@ public class RegisterActivity extends AppCompatActivity {
     Button register;
     RadioGroup genderGroup;
     RadioButton genderSelect;
+
+    TextView loginBt;
 
     ProgressBar progressBarSignUp;
 
@@ -76,11 +83,21 @@ public class RegisterActivity extends AppCompatActivity {
         confirmPwd = (EditText) findViewById(R.id.passwordCnfSignup);
         mobileNum = (EditText)findViewById(R.id.mobNumSignup) ;
         progressBarSignUp =  (ProgressBar)findViewById(R.id.progressReg);
+        loginBt = (TextView)findViewById(R.id.loginRegPage);
+
 
         //Radio button for gender
         genderGroup = (RadioGroup) findViewById(R.id.genderRadioGroup);
         genderGroup.clearCheck();
 
+        loginBt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
         //Register button for sava data into database
         register = (Button) findViewById(R.id.registerFBt);
         register.setOnClickListener(new View.OnClickListener() {
@@ -100,6 +117,14 @@ public class RegisterActivity extends AppCompatActivity {
                 String txtConfirmPwd = confirmPwd.getText().toString();
                 String txtmobileNum = mobileNum.getText().toString();
                 String txtGender;
+                String userType = "user";
+
+
+                /*txtNIC ="235";
+                txtAddress="sga";
+                txtBirthday="wrgq";
+                txtmobileNum="wahr";
+                txtGender="hse";*/
 
                 //Check Entered data
                 if(TextUtils.isEmpty(txtfullName)){
@@ -150,7 +175,6 @@ public class RegisterActivity extends AppCompatActivity {
                     Toast.makeText(RegisterActivity.this,"Please Enter Valid Mobile Number ",Toast.LENGTH_LONG).show();
                     name.setError("Valid Mobile Number is Required");
                     name.requestFocus();
-
                 }else {
 
                     txtGender= genderSelect.getText().toString();
@@ -171,18 +195,31 @@ public class RegisterActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
-                            String UserId = auth.getCurrentUser().getUid();
+                            String userId = auth.getCurrentUser().getUid();
                             //Store user Detils in the database
-                            DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("users");
-                            User newUser=new User(txtfullName,txtEmail,txtNIC,txtAddress,txtBirthday,txtmobileNum,txtGender);
-                            Toast.makeText(RegisterActivity.this,"User Register Successful",Toast.LENGTH_LONG).show();
-                            FirebaseUser firebaseUser = auth.getCurrentUser();
+                            DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("Users");
+                            User newUser = new User(txtfullName, txtEmail, txtAddress, txtBirthday, txtNIC, txtGender, txtmobileNum,"user");
 
+                            usersRef.child(userId).setValue(newUser).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(RegisterActivity.this, "User registration successful", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(RegisterActivity.this, "Failed to store user details in the database", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+                            FirebaseUser firebaseUser = auth.getCurrentUser();
                             //Send verification Email
                             firebaseUser.sendEmailVerification();
 
-                            //Open User Profile
 
+                        }else {
+                            String errorMessage = task.getException().getMessage();
+                            Log.e("RegistrationError", errorMessage);
+                            Toast.makeText(RegisterActivity.this, "User registration failed Try again!", Toast.LENGTH_SHORT).show();
+                            //
                         }
 
                     }
@@ -198,11 +235,12 @@ public class RegisterActivity extends AppCompatActivity {
         private String mobNum;
         private String gender;
 
+        private String userType;
+
         public User() {
             // Required empty constructor for Firebase
         }
-
-        public User(String name, String email,String nic,String address,String birthday,String mobNum,String gender) {
+        public User(String name, String email,String nic,String address,String birthday,String mobNum,String gender,String userType) {
             this.name = name;
             this.email = email;
             this.nic =nic;
@@ -210,9 +248,74 @@ public class RegisterActivity extends AppCompatActivity {
             this.birthday=birthday;
             this.mobNum=mobNum;
             this.gender=gender;
+            this.userType=userType;
         }
 
+
         // Getters and setters (optional)
-        // ...
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getEmail() {
+            return email;
+        }
+
+        public void setEmail(String email) {
+            this.email = email;
+        }
+
+        public String getAddress() {
+            return address;
+        }
+
+        public void setAddress(String address) {
+            this.address = address;
+        }
+
+        public String getBirthday() {
+            return birthday;
+        }
+
+        public void setBirthday(String birthday) {
+            this.birthday = birthday;
+        }
+
+        public String getGender() {
+            return gender;
+        }
+
+        public void setGender(String sex) {
+            this.gender = sex;
+        }
+
+        public String getNic() {
+            return nic;
+        }
+
+        public void setNic (String idNumber) {
+            this.nic = idNumber;
+        }
+
+        public String getMobNum() {
+            return mobNum;
+        }
+
+        public void setMobNum(String mobileNumber) {
+            this.mobNum= mobileNumber;
+        }
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        // Navigate back to the previous activity
+        // You can replace MainActivity.class with the desired activity class
+        Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

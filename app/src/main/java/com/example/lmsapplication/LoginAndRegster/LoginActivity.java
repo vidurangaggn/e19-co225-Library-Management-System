@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.lmsapplication.MainActivity;
@@ -41,10 +42,12 @@ public class LoginActivity extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
 
-        EditText inpEmail = (EditText) findViewById(R.id.emailLogin);
+        EditText inpEmail = (EditText) findViewById(R.id.emailForgotPw);
         EditText inpPassword = (EditText) findViewById(R.id.pwdLogin);
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBarLogin);
+        TextView forgotPw = (TextView)findViewById(R.id.forgotpwBt);
         CheckBox rememberBt = (CheckBox)findViewById(R.id.rememberBt);
+
 
 
         loginPrefs = getSharedPreferences(PREF_NAME,MODE_PRIVATE);
@@ -56,7 +59,18 @@ public class LoginActivity extends AppCompatActivity {
             inpPassword.setText(password);
             rememberBt.setChecked(true);
         }
+        //Go to the forget password page
+        forgotPw.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
+
+        //go to tha register page
         Button registerBt = (Button)findViewById(R.id.registerBt);
         registerBt.setOnClickListener(new View.OnClickListener() {
             @Override

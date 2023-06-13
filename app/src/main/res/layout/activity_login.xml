@@ -16,7 +16,7 @@
         android:textColor="@color/black"
         android:textSize="35dp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/emailLogin"
+        app:layout_constraintBottom_toTopOf="@+id/emailForgotPw"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,7 +24,7 @@
         app:layout_constraintVertical_bias="0.004" />
 
     <EditText
-        android:id="@+id/emailLogin"
+        android:id="@+id/emailForgotPw"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
@@ -100,7 +100,7 @@
         android:layout_width="189dp"
         android:layout_height="168dp"
         android:layout_marginTop="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/emailLogin"
+        app:layout_constraintBottom_toTopOf="@+id/emailForgotPw"
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
