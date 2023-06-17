@@ -156,6 +156,10 @@ public class RegisterActivity extends AppCompatActivity {
                     Toast.makeText(RegisterActivity.this,"Please Enter Password ",Toast.LENGTH_LONG).show();
                     pwd.setError("Password is Required");
                     pwd.requestFocus();
+                }else if(txtPwd.length()<8){
+                    Toast.makeText(RegisterActivity.this,"Password must contain at least 8 characters",Toast.LENGTH_LONG).show();
+                    pwd.setError("Password must contain at least 8 characters");
+                    pwd.requestFocus();
                 }else if(TextUtils.isEmpty(txtConfirmPwd)){
                     Toast.makeText(RegisterActivity.this,"Please Confirm Your Password ",Toast.LENGTH_LONG).show();
                     confirmPwd.setError("Password Confirmation is Required");
@@ -205,6 +209,11 @@ public class RegisterActivity extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
                                         Toast.makeText(RegisterActivity.this, "User registration successful", Toast.LENGTH_SHORT).show();
+                                        // Navigate back to the previous activity
+                                        Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                                        startActivity(intent);
+                                        finish();
+
                                     } else {
                                         Toast.makeText(RegisterActivity.this, "Failed to store user details in the database", Toast.LENGTH_SHORT).show();
                                     }
@@ -219,7 +228,7 @@ public class RegisterActivity extends AppCompatActivity {
                             String errorMessage = task.getException().getMessage();
                             Log.e("RegistrationError", errorMessage);
                             Toast.makeText(RegisterActivity.this, "User registration failed Try again!", Toast.LENGTH_SHORT).show();
-                            //
+                            progressBarSignUp.setVisibility(View.GONE);
                         }
 
                     }
@@ -313,7 +322,6 @@ public class RegisterActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         // Navigate back to the previous activity
-        // You can replace MainActivity.class with the desired activity class
         Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
