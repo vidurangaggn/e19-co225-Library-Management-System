@@ -91,6 +91,25 @@ public class FirebaseManager {
         TaskCompletionSource<Boolean> completionSource = new TaskCompletionSource<>();
         completionSource.setResult(false);
         return completionSource.getTask();
+
+        //How to call
+        /*FirebaseManager firebaseManager = FirebaseManager.getInstance();
+
+        firebaseManager.isAdminUser().addOnCompleteListener(task -> {
+        if (task.isSuccessful()) {
+        boolean isAdminUser = task.getResult();
+        if (isAdminUser) {
+            // User is an admin
+        } else {
+            // User is not an admin
+        }
+    } else {
+        // Error occurred while checking the user's admin status
+        Exception exception = task.getException();
+        // Handle the exception
+    }
+});
+*/
     }
 
 }
