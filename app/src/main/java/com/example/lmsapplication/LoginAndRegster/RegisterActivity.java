@@ -198,10 +198,9 @@ public class RegisterActivity extends AppCompatActivity {
                         if (task.isSuccessful()){
                             String userId = firebaseManager.getCurrentUser().getUid();
                             //Store user Detils in the database
-                            DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("Users");
-                            User newUser = new User(txtfullName, txtEmail, txtAddress, txtBirthday, txtNIC, txtGender, txtmobileNum,"user");
+                            User newUser = new User(txtfullName, txtEmail, txtNIC, txtAddress, txtBirthday, txtmobileNum, txtGender,"user");
 
-                            usersRef.child(userId).setValue(newUser).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            firebaseManager.getDataRef("Users").child(userId).setValue(newUser).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {

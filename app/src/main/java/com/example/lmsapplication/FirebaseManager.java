@@ -9,12 +9,12 @@ public class FirebaseManager {
 
     private static FirebaseManager instance;
     private FirebaseAuth auth;
-    private DatabaseReference database;
+    private FirebaseDatabase database;
 
     private FirebaseManager() {
         auth = FirebaseAuth.getInstance();
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        database = firebaseDatabase.getReference();
+        database = FirebaseDatabase.getInstance();
+
     }
 
     public void logoutUser() {
@@ -33,6 +33,9 @@ public class FirebaseManager {
     }
     public FirebaseAuth getAuth() {
         return auth;
+    }
+    public DatabaseReference getDataRef(String path) {
+        return database.getReference(path);
     }
 
 }
