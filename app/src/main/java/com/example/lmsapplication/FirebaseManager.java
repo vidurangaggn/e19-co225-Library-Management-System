@@ -1,9 +1,12 @@
 package com.example.lmsapplication;
-
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.TaskCompletionSource;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
 
 public class FirebaseManager {
 
@@ -36,6 +39,58 @@ public class FirebaseManager {
     }
     public DatabaseReference getDataRef(String path) {
         return database.getReference(path);
+    }
+
+    public Task<Boolean> isAdminUser() {
+        FirebaseUser currentUser = getCurrentUser();
+        DatabaseReference adminRef = getDataRef("Admin");
+
+        if (currentUser != null) {
+            String email = currentUser.getEmail();
+
+            if (email != null) {
+                return adminRef.orderByChild("email").equalTo(email).limitToFirst(1).get().continueWith(task -> {
+                    if (task.isSuccessful()) {
+                        DataSnapshot dataSnapshot = task.getResult();
+                        boolean isAdmin = dataSnapshot.exists();
+                        return isAdmin;
+                    } else {
+                        throw task.getException();
+                    }
+                });
+            }
+        }
+
+        // Resolve the task with a false value if user or email is null
+        TaskCompletionSource<Boolean> completionSource = new TaskCompletionSource<>();
+        completionSource.setResult(false);
+        return completionSource.getTask();
+    }
+
+    public Task<Boolean> isStaffUser() {
+        FirebaseUser currentUser = getCurrentUser();
+        DatabaseReference adminRef = getDataRef("Staff");
+
+        if (currentUser != null) {
+            String email = currentUser.getEmail();
+
+            if (email != null) {
+                return adminRef.orderByChild("email").equalTo(email).limitToFirst(1).get().continueWith(task -> {
+                    if (task.isSuccessful()) {
+                        DataSnapshot dataSnapshot = task.getResult();
+                        boolean isStaff = dataSnapshot.exists();
+                        return isStaff;
+                    } else {
+                        throw task.getException();
+                    }
+                });
+            }
+        }
+
+        // Resolve the task with a false value if user or email is null
+        TaskCompletionSource<Boolean> completionSource = new TaskCompletionSource<>();
+        completionSource.setResult(false);
+        return completionSource.getTask();
     }
 
 }

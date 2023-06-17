@@ -202,9 +202,9 @@ public class RegisterActivity extends AppCompatActivity {
                         if (task.isSuccessful()){
                             String userId = firebaseManager.getCurrentUser().getUid();
                             //Store user Detils in the database
-                            User newUser = new User(txtfullName, txtEmail, txtNIC, txtAddress, txtBirthday, txtmobileNum, txtGender,"user");
+                            User newUser = new User(txtfullName, txtEmail, txtNIC, txtAddress, txtBirthday, txtmobileNum, txtGender);
 
-                            firebaseManager.getDataRef("Users").child(userId).setValue(newUser).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            firebaseManager.getDataRef("User").child(userId).setValue(newUser).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
@@ -244,12 +244,12 @@ public class RegisterActivity extends AppCompatActivity {
         private String mobNum;
         private String gender;
 
-        private String userType;
+
 
         public User() {
             // Required empty constructor for Firebase
         }
-        public User(String name, String email,String nic,String address,String birthday,String mobNum,String gender,String userType) {
+        public User(String name, String email,String nic,String address,String birthday,String mobNum,String gender) {
             this.name = name;
             this.email = email;
             this.nic =nic;
@@ -257,7 +257,6 @@ public class RegisterActivity extends AppCompatActivity {
             this.birthday=birthday;
             this.mobNum=mobNum;
             this.gender=gender;
-            this.userType=userType;
         }
 
 
