@@ -1,17 +1,14 @@
 package com.example.lmsapplication.LoginAndRegster;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.lmsapplication.MainActivity;
@@ -36,7 +33,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }*/
 
-        email = findViewById(R.id.emailForgotPw);
+        email = findViewById(R.id.emailLogin);
         //ProgressBar progressBar = findViewById(R.id.progressBarReset);
         resetBt = findViewById(R.id.resetPwBt);
         resetBt.setOnClickListener(new View.OnClickListener() {

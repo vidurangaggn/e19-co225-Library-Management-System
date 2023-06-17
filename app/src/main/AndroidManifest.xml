@@ -13,8 +13,6 @@
         android:theme="@style/Theme.LMSApplication"
         tools:targetApi="31">
         <activity
-<<<<<<< HEAD
-=======
             android:name=".HomeActivity"
             android:exported="false" />
         <activity
@@ -27,7 +25,7 @@
             android:name=".LoginAndRegster.LoginActivity"
             android:exported="false" />
         <activity
->>>>>>> main
+
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name">

@@ -42,7 +42,7 @@ public class LoginActivity extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
 
-        EditText inpEmail = (EditText) findViewById(R.id.emailForgotPw);
+        EditText inpEmail = (EditText) findViewById(R.id.emailLogin);
         EditText inpPassword = (EditText) findViewById(R.id.pwdLogin);
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBarLogin);
         TextView forgotPw = (TextView)findViewById(R.id.forgotpwBt);
@@ -94,8 +94,8 @@ public class LoginActivity extends AppCompatActivity {
 
                 }else if (TextUtils.isEmpty(txtPwd)){
                     Toast.makeText(LoginActivity.this,"Please Enter Your Password",Toast.LENGTH_LONG);
-                    inpEmail.setError("Password is Required");
-                    inpEmail.requestFocus();
+                    inpPassword.setError("Password is Required");
+                    inpPassword.requestFocus();
                 }else {
                     progressBar.setVisibility(View.VISIBLE);
                     loginUser(txtEmail, txtPwd, new LoginCallback() {
@@ -117,16 +117,12 @@ public class LoginActivity extends AppCompatActivity {
 
                         @Override
                         public void onLoginFailure() {
-
-                            //For Test Runs ///////////////////////////////
-                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                            intent.putExtra("loginStatus", true);
-                            startActivity(intent);
-                            finish();
-                            /////////////////////////////////////////////
-                            //Toast.makeText(LoginActivity.this,"Something Went Wrong",Toast.LENGTH_LONG).show();
-                            Toast.makeText(LoginActivity.this,"You Are Logged In",Toast.LENGTH_LONG).show();
-                        }
+                            Toast.makeText(LoginActivity.this,"Login Failed!",Toast.LENGTH_LONG).show();
+                            progressBar.setVisibility(View.GONE);
+                            inpEmail.clearComposingText();
+                            inpPassword.clearComposingText();
+                            inpEmail.setError("Invalid Login, Please Try Again!");
+                            }
                     });
                 }
             }

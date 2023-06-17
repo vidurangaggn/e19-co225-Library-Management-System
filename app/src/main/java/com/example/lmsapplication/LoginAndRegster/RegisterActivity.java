@@ -133,48 +133,48 @@ public class RegisterActivity extends AppCompatActivity {
                     name.requestFocus();
                 }else if(TextUtils.isEmpty(txtEmail)){
                     Toast.makeText(RegisterActivity.this,"Please Enter Email ",Toast.LENGTH_LONG).show();
-                    name.setError("Full Name is Required");
-                    name.requestFocus();
+                    email.setError("Email is Required");
+                    email.requestFocus();
                 }else if(!Patterns.EMAIL_ADDRESS.matcher(txtEmail).matches()){
                     Toast.makeText(RegisterActivity.this,"Please Re-Enter Enter Email ",Toast.LENGTH_LONG).show();
-                    name.setError("Valid Email is Required");
-                    name.requestFocus();
+                    email.setError("Valid Email is Required");
+                    email.requestFocus();
                 }else if(TextUtils.isEmpty(txtNIC)){
                     Toast.makeText(RegisterActivity.this,"Please Enter NIC ",Toast.LENGTH_LONG).show();
-                    name.setError("NIC is Required");
-                    name.requestFocus();
+                    nic.setError("NIC is Required");
+                    nic.requestFocus();
                 }else if(TextUtils.isEmpty(txtAddress)){
                     Toast.makeText(RegisterActivity.this,"Please Enter Address ",Toast.LENGTH_LONG).show();
-                    name.setError("Address is Required");
-                    name.requestFocus();
+                    address.setError("Address is Required");
+                    address.requestFocus();
                 }else if(TextUtils.isEmpty(txtBirthday)){
                     Toast.makeText(RegisterActivity.this,"Please Enter Birth day ",Toast.LENGTH_LONG).show();
-                    name.setError("Birth day is Required");
-                    name.requestFocus();
+                    birthday.setError("Birth day is Required");
+                    birthday.requestFocus();
                 }else if(TextUtils.isEmpty(txtPwd)){
                     Toast.makeText(RegisterActivity.this,"Please Enter Password ",Toast.LENGTH_LONG).show();
-                    name.setError("Password is Required");
-                    name.requestFocus();
+                    pwd.setError("Password is Required");
+                    pwd.requestFocus();
                 }else if(TextUtils.isEmpty(txtConfirmPwd)){
                     Toast.makeText(RegisterActivity.this,"Please Confirm Your Password ",Toast.LENGTH_LONG).show();
-                    name.setError("Password Confirmation is Required");
-                    name.requestFocus();
+                    confirmPwd.setError("Password Confirmation is Required");
+                    confirmPwd.requestFocus();
                 }else if(!txtPwd.equals(txtConfirmPwd)){
                     Toast.makeText(RegisterActivity.this,"Please Enter Same Password ",Toast.LENGTH_LONG).show();
-                    name.setError("Password Confirmation is Required");
-                    name.requestFocus();
+                    pwd.setError("Password Confirmation is Required");
+                    pwd.requestFocus();
                     //Clear the passwords
                     pwd.clearComposingText();
                     confirmPwd.clearComposingText();
                 }else if(TextUtils.isEmpty(txtmobileNum)){
                     Toast.makeText(RegisterActivity.this,"Please Enter Mobile Number ",Toast.LENGTH_LONG).show();
-                    name.setError("Mobile Number is Required");
-                    name.requestFocus();
+                    mobileNum.setError("Mobile Number is Required");
+                    mobileNum.requestFocus();
 
                 }else if(txtmobileNum.length()<10){
                     Toast.makeText(RegisterActivity.this,"Please Enter Valid Mobile Number ",Toast.LENGTH_LONG).show();
-                    name.setError("Valid Mobile Number is Required");
-                    name.requestFocus();
+                    mobileNum.setError("Valid Mobile Number is Required");
+                    mobileNum.requestFocus();
                 }else {
 
                     txtGender= genderSelect.getText().toString();
