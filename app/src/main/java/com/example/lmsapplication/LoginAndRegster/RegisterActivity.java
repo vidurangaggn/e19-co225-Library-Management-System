@@ -15,6 +15,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.lmsapplication.FirebaseManager;
 import com.example.lmsapplication.MainActivity;
 import com.example.lmsapplication.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -189,13 +190,13 @@ public class RegisterActivity extends AppCompatActivity {
     }
     //Register User using the credentials given
     private void registerUser(String txtfullName, String txtEmail, String txtNIC, String txtAddress, String txtBirthday, String txtmobileNum, String txtGender, String txtPwd) {
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        auth.createUserWithEmailAndPassword(txtEmail, txtPwd).addOnCompleteListener(RegisterActivity.this,
+        FirebaseManager firebaseManager = FirebaseManager.getInstance();
+        firebaseManager.getAuth().createUserWithEmailAndPassword(txtEmail, txtPwd).addOnCompleteListener(RegisterActivity.this,
                 new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
-                            String userId = auth.getCurrentUser().getUid();
+                            String userId = firebaseManager.getCurrentUser().getUid();
                             //Store user Detils in the database
                             DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("Users");
                             User newUser = new User(txtfullName, txtEmail, txtAddress, txtBirthday, txtNIC, txtGender, txtmobileNum,"user");
@@ -210,7 +211,7 @@ public class RegisterActivity extends AppCompatActivity {
                                     }
                                 }
                             });
-                            FirebaseUser firebaseUser = auth.getCurrentUser();
+                            FirebaseUser firebaseUser = firebaseManager.getCurrentUser();
                             //Send verification Email
                             firebaseUser.sendEmailVerification();
 

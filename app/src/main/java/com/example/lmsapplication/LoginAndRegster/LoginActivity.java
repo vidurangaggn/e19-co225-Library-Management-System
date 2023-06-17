@@ -15,6 +15,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.lmsapplication.FirebaseManager;
 import com.example.lmsapplication.MainActivity;
 import com.example.lmsapplication.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -26,7 +27,6 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class LoginActivity extends AppCompatActivity {
-    FirebaseAuth auth;
     private static final String PREF_NAME = "LoginPrefs";
     private static final String KEY_USERNAME = "username";
     private static final String KEY_PASSWORD = "password";
@@ -40,7 +40,8 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        auth = FirebaseAuth.getInstance();
+
+
 
         EditText inpEmail = (EditText) findViewById(R.id.emailLogin);
         EditText inpPassword = (EditText) findViewById(R.id.pwdLogin);
@@ -109,6 +110,9 @@ public class LoginActivity extends AppCompatActivity {
                                 clearLoginPrefs();
                             }
 
+
+
+                            //Load Main Activity
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             intent.putExtra("loginStatus", true); // Pass the login status as a boolean value
                             startActivity(intent);
@@ -151,8 +155,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void loginUser(String txtEmail, String txtPwd,LoginCallback callback) {
-
-        auth.signInWithEmailAndPassword(txtEmail,txtPwd).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        FirebaseManager firebaseManager = FirebaseManager.getInstance();
+        firebaseManager.getAuth().signInWithEmailAndPassword(txtEmail,txtPwd).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
 

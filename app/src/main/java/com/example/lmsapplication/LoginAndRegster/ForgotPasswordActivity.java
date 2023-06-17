@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.lmsapplication.FirebaseManager;
 import com.example.lmsapplication.MainActivity;
 import com.example.lmsapplication.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -55,8 +56,8 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     }
 
     private void resetPassword(String email) {
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        auth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
+        FirebaseManager firebaseManager = FirebaseManager.getInstance();
+        firebaseManager.getAuth().sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){
