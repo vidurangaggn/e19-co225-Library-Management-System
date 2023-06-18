@@ -16,6 +16,15 @@
             android:name=".HomeActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.books.BOOK_SEARCH"
+            android:exported="false" />
+        <activity
+            android:name=".ui.books.ADD_BOOK"
+            android:exported="false" />
+        <activity
+            android:name=".ui.books.STAFF_BOOK_RETURN_UPDATE"
+            android:exported="false" />
+        <activity
             android:name=".LoginAndRegster.ForgotPasswordActivity"
             android:exported="false" />
         <activity

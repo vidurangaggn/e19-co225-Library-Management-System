@@ -49,10 +49,21 @@ public class FirebaseManager {
             String email = currentUser.getEmail();
 
             if (email != null) {
-                return adminRef.orderByChild("email").equalTo(email).limitToFirst(1).get().continueWith(task -> {
+                return adminRef.get().continueWith(task -> {
                     if (task.isSuccessful()) {
                         DataSnapshot dataSnapshot = task.getResult();
-                        boolean isAdmin = dataSnapshot.exists();
+                        boolean isAdmin = false;
+
+                        for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
+                            DataSnapshot emailSnapshot = childSnapshot.child("email");
+                            String userEmail = emailSnapshot.getValue(String.class);
+
+                            if (userEmail != null && userEmail.equals(email)) {
+                                isAdmin = true;
+                                break;
+                            }
+                        }
+
                         return isAdmin;
                     } else {
                         throw task.getException();
@@ -69,16 +80,27 @@ public class FirebaseManager {
 
     public Task<Boolean> isStaffUser() {
         FirebaseUser currentUser = getCurrentUser();
-        DatabaseReference adminRef = getDataRef("Staff");
+        DatabaseReference adminRef = getDataRef("Admin");
 
         if (currentUser != null) {
             String email = currentUser.getEmail();
 
             if (email != null) {
-                return adminRef.orderByChild("email").equalTo(email).limitToFirst(1).get().continueWith(task -> {
+                return adminRef.get().continueWith(task -> {
                     if (task.isSuccessful()) {
                         DataSnapshot dataSnapshot = task.getResult();
-                        boolean isStaff = dataSnapshot.exists();
+                        boolean isStaff = false;
+
+                        for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
+                            DataSnapshot emailSnapshot = childSnapshot.child("email");
+                            String userEmail = emailSnapshot.getValue(String.class);
+
+                            if (userEmail != null && userEmail.equals(email)) {
+                                isStaff = true;
+                                break;
+                            }
+                        }
+
                         return isStaff;
                     } else {
                         throw task.getException();

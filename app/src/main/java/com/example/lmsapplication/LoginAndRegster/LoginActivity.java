@@ -89,12 +89,12 @@ public class LoginActivity extends AppCompatActivity {
                 String txtPwd = inpPassword.getText().toString();
 
                 if (TextUtils.isEmpty(txtEmail)){
-                    Toast.makeText(LoginActivity.this,"Please Enter Your Email",Toast.LENGTH_LONG);
+                    Toast.makeText(LoginActivity.this,"Please Enter Your Email",Toast.LENGTH_LONG).show();
                     inpEmail.setError("Email is Required");
                     inpEmail.requestFocus();
 
                 }else if (TextUtils.isEmpty(txtPwd)){
-                    Toast.makeText(LoginActivity.this,"Please Enter Your Password",Toast.LENGTH_LONG);
+                    Toast.makeText(LoginActivity.this,"Please Enter Your Password",Toast.LENGTH_LONG).show();
                     inpPassword.setError("Password is Required");
                     inpPassword.requestFocus();
                 }else {
